@@ -277,6 +277,35 @@
              </mat-expansion-panel>
              <!-- End:: Estate Planning -->
 
+             <!--start:: net worth ratio-->
+             <mat-form-field appearance="fill" class="full-width mt-3 mb-3">
+               <mat-label>Select your Net worth ratio</mat-label>
+               <mat-select formControlName="netWorthRatio">
+                 <mat-option value="5">0.00 - 0.50</mat-option>
+                 <mat-option value="10">0.6 - 1.00</mat-option>
+               </mat-select>
+               <mat-error *ngIf="formControls.netWorthRatio.hasError('required')">
+                 <mat-icon>error</mat-icon> Please select your net worth ratio!
+               </mat-error>
+             </mat-form-field>
+             <!--end:: net worth ratio-->
+
+             <!--start:: dti ratio-->
+             <mat-form-field appearance="fill" class="full-width mb-3">
+               <mat-label>Select your DTI ratio</mat-label>
+               <mat-select formControlName="dtiRatio">
+                 <mat-option value="10">0 - 25</mat-option>
+                 <mat-option value="5">25 - 50</mat-option>
+                 <mat-option value="0">50 - 100</mat-option>
+               </mat-select>
+               <mat-error *ngIf="formControls.dtiRatio.hasError('required')">
+                 <mat-icon>error</mat-icon> Please select your DTI ratio!
+               </mat-error>
+             </mat-form-field>
+             <!--end:: dti ratio-->
+
+
+
           <button mat-raised-button color="primary" (click)="calculate()">Calculate</button>
 
            </form>

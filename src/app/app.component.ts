@@ -13,9 +13,18 @@ export class AppComponent implements  AfterViewInit{
   title = 'sheldrick';
   estatePanelOpenState = false;
   dtiPanelOpenState = false;
-
   overview: boolean = true;
   details: boolean = false;
+
+
+
+  netWorth:number = 0;
+  portfolioMix:number = 0;
+  cashFlow:number = 0;
+  debtToIncomeRation:number = 0;
+  netWorthRatio:number = 0;
+
+
 
 
 
@@ -38,6 +47,8 @@ export class AppComponent implements  AfterViewInit{
     poa: ['', Validators.required],
     trust: ['', Validators.required],
     stocks: ['', Validators.required],
+    netWorthRatio: ['', Validators.required],
+    dtiRatio: ['', Validators.required],
 
 
 
@@ -51,12 +62,6 @@ export class AppComponent implements  AfterViewInit{
     return this.inputform.value;
   }
 
-
-
-
-  formatLabel(value: number): string {
-    return `${value}`;
-  }
 
   calculate() {
 
