@@ -18,20 +18,36 @@
              <!--start:: age-->
              <mat-form-field appearance="fill" floatLabel="always" class="full-width mb-3">
                <mat-label>Age</mat-label>
-               <input matInput type="number" class="example-right-align" placeholder="0">
+               <input formControlName="age" matInput type="number" class="example-right-align">
+               <mat-error *ngIf="formControls.age.hasError('required')">
+                 <mat-icon>error</mat-icon> Please specify your age
+               </mat-error>
+
+               <mat-error *ngIf="formControls.age.hasError('min')">
+                 <mat-icon>error</mat-icon> Age must be greater than 0
+               </mat-error>
+
              </mat-form-field>
+
+
              <!-- end:: age -->
 
 
              <!-- start:: credit score -->
              <mat-form-field appearance="fill" class="full-width mb-3">
                <mat-label>Select credit score</mat-label>
-               <mat-select [(value)]="selected">
-                 <mat-option>None</mat-option>
-                 <mat-option value="option1">Option 1</mat-option>
-                 <mat-option value="option2">Option 2</mat-option>
-                 <mat-option value="option3">Option 3</mat-option>
+               <mat-select formControlName="creditScore">
+
+                 <mat-option value="0">200-620</mat-option>
+                 <mat-option value="5">620-680</mat-option>
+                 <mat-option value="8">680-720</mat-option>
+                 <mat-option value="10">720+</mat-option>
                </mat-select>
+
+               <mat-error *ngIf="formControls.age.hasError('required')">
+                 <mat-icon>error</mat-icon> Please choose your credit score
+               </mat-error>
+
              </mat-form-field>
 
 
@@ -40,8 +56,8 @@
 
 
 
-             <mat-expansion-panel class="mb-4" (opened)="panelOpenState = true"
-                                  (closed)="panelOpenState = false">
+             <mat-expansion-panel class="mb-4"[(expanded)]="dtiPanelOpenState" (opened)="dtiPanelOpenState = true"
+                                  (closed)="dtiPanelOpenState = false">
                <mat-expansion-panel-header>
                  <mat-panel-title>
                    Your monthly DTI
@@ -54,9 +70,18 @@
                <!--start:: debt-->
                <mat-form-field appearance="fill" floatLabel="always" class="full-width mb-3">
                  <mat-label>Debt</mat-label>
-                 <input matInput type="number" class="example-right-align" placeholder="0">
+                 <input formControlName="debt" matInput type="number" class="example-right-align">
                  <span matTextPrefix>$&nbsp;</span>
-                 <span matTextSuffix>.00</span>
+
+
+                 <mat-error *ngIf="formControls.debt.hasError('required')">
+                   <mat-icon>error</mat-icon>Please specify a value for your debt!
+                 </mat-error>
+
+                 <mat-error *ngIf="formControls.debt.hasError('min')">
+                   <mat-icon>error</mat-icon> Debt can't be negative!
+                 </mat-error>
+
                </mat-form-field>
                <!--end::debt-->
 
@@ -67,9 +92,17 @@
                <!-- start:: income-->
                <mat-form-field appearance="fill" floatLabel="always" class="full-width mb-3">
                  <mat-label>Income</mat-label>
-                 <input matInput type="number" class="example-right-align" placeholder="0">
+                 <input formControlName="income" matInput type="number" class="example-right-align">
                  <span matTextPrefix>$&nbsp;</span>
-                 <span matTextSuffix>.00</span>
+
+
+                 <mat-error *ngIf="formControls.income.hasError('required')">
+                   <mat-icon>error</mat-icon> Please specify a value for your income!
+                 </mat-error>
+
+                 <mat-error *ngIf="formControls.income.hasError('min')">
+                   <mat-icon>error</mat-icon> Income can't be negative!
+                 </mat-error>
                </mat-form-field>
                <!--end::income-->
 
@@ -77,9 +110,17 @@
                <!-- start:: asset-->
                <mat-form-field appearance="fill" floatLabel="always" class="full-width mb-3">
                  <mat-label>Asset</mat-label>
-                 <input matInput type="number" class="example-right-align" placeholder="0">
+                 <input formControlName="assets" matInput type="number" class="example-right-align">
                  <span matTextPrefix>$&nbsp;</span>
-                 <span matTextSuffix>.00</span>
+
+                 <mat-error *ngIf="formControls.assets.hasError('required')">
+                   <mat-icon>error</mat-icon> Please specify a value for your assets!
+                 </mat-error>
+
+                 <mat-error *ngIf="formControls.assets.hasError('min')">
+                   <mat-icon>error</mat-icon> assets can't be negative!
+                 </mat-error>
+
                </mat-form-field>
                <!--end::asset-->
 
@@ -87,9 +128,17 @@
                <!-- start:: liabilities-->
                <mat-form-field appearance="fill" floatLabel="always" class="full-width mb-3">
                  <mat-label>Liabilities</mat-label>
-                 <input matInput type="number" class="example-right-align" placeholder="0">
+                 <input formControlName="liabilities" matInput type="number" class="example-right-align">
                  <span matTextPrefix>$&nbsp;</span>
-                 <span matTextSuffix>.00</span>
+
+
+                 <mat-error *ngIf="formControls.liabilities.hasError('required')">
+                   <mat-icon>error</mat-icon> Please specify a value for your liabilities!
+                 </mat-error>
+
+                 <mat-error *ngIf="formControls.liabilities.hasError('min')">
+                   <mat-icon>error</mat-icon> liabilities can't be negative!
+                 </mat-error>
                </mat-form-field>
                <!--end::liabilities-->
 
@@ -99,20 +148,26 @@
 
              <!--start:: Financial Goals-->
              <mat-form-field appearance="fill" class="full-width mt-3 mb-3">
-               <mat-label>Financila Goals in Place?</mat-label>
-               <mat-select [(value)]="finGoal">
+               <mat-label>Financial Goals in Place?</mat-label>
+               <mat-select formControlName="finGoal">
                  <mat-option value="no">No</mat-option>
                  <mat-option value="not really">Not Really</mat-option>
                  <mat-option value="yes">Yes</mat-option>
                  <mat-option value="sort of">Sort Of</mat-option>
                </mat-select>
+
+               <mat-error *ngIf="formControls.finGoal.hasError('required')">
+                 <mat-icon>error</mat-icon> Please choose your financial goal!
+               </mat-error>
+
+
              </mat-form-field>
              <!--end:: financial goals -->
 
 
              <!-- start::Estate Planning-->
-             <mat-expansion-panel class="mb-4" (opened)="panelOpenState = true"
-                                  (closed)="panelOpenState = false">
+             <mat-expansion-panel  class="mb-4" [(expanded)]="estatePanelOpenState" (opened)="estatePanelOpenState = true"
+                                   (closed)="estatePanelOpenState = false">
                <mat-expansion-panel-header>
                  <mat-panel-title>
                    Estate Planning
@@ -125,60 +180,83 @@
                <!--start:: Will-->
                <mat-form-field appearance="fill" class="full-width  mb-3">
                  <mat-label>Will</mat-label>
-                 <mat-select [(value)]="will">
+                 <mat-select formControlName="will">
                    <mat-option value="yes">Yes</mat-option>
                    <mat-option value="no">No</mat-option>
                  </mat-select>
+
+                 <mat-error *ngIf="formControls.will.hasError('required')">
+                   <mat-icon>error</mat-icon> Please choose your will!
+                 </mat-error>
                </mat-form-field>
                <!--end::Will-->
 
                <!-- start:: house -->
                <mat-form-field appearance="fill" class="full-width  mb-3">
                  <mat-label>House</mat-label>
-                 <mat-select [(value)]="house">
+                 <mat-select formControlName="house">
                    <mat-option value="yes">Yes</mat-option>
                    <mat-option value="no">No</mat-option>
                  </mat-select>
+
+                 <mat-error *ngIf="formControls.house.hasError('required')">
+                   <mat-icon>error</mat-icon> Please choose your financial house!
+                 </mat-error>
                </mat-form-field>
                <!-- end:: house-->
 
                <!-- start:: life ins -->
                <mat-form-field appearance="fill" class="full-width  mb-3">
                  <mat-label>Life Ins</mat-label>
-                 <mat-select [(value)]="lifeIns">
+                 <mat-select formControlName="lifeIns">
                    <mat-option value="yes">Yes</mat-option>
                    <mat-option value="no">No</mat-option>
                  </mat-select>
+
+                 <mat-error *ngIf="formControls.lifeIns.hasError('required')">
+                   <mat-icon>error</mat-icon> Please choose your life insurance!
+                 </mat-error>
                </mat-form-field>
                <!-- end:: life ins-->
 
                <!-- start:: savings -->
                <mat-form-field appearance="fill" class="full-width  mb-3">
                  <mat-label>Savings</mat-label>
-                 <mat-select [(value)]="savings">
+                 <mat-select formControlName="savings">
                    <mat-option value="yes">Yes</mat-option>
                    <mat-option value="no">No</mat-option>
                  </mat-select>
+
+                 <mat-error *ngIf="formControls.savings.hasError('required')">
+                   <mat-icon>error</mat-icon> Please choose your savings!
+                 </mat-error>
                </mat-form-field>
                <!-- end:: savings-->
 
                <!-- start:: POA -->
                <mat-form-field appearance="fill" class="full-width mb-3">
                  <mat-label>POA</mat-label>
-                 <mat-select [(value)]="poa">
+                 <mat-select formControlName="poa">
                    <mat-option value="yes">Yes</mat-option>
                    <mat-option value="no">No</mat-option>
                  </mat-select>
+
+                 <mat-error *ngIf="formControls.poa.hasError('required')">
+                   <mat-icon>error</mat-icon> Please choose your POA!
+                 </mat-error>
                </mat-form-field>
                <!-- end:: POA-->
 
                <!-- start:: trust -->
                <mat-form-field appearance="fill" class="full-width mb-3">
                  <mat-label>Trust</mat-label>
-                 <mat-select [(value)]="trust">
+                 <mat-select formControlName="trust">
                    <mat-option value="yes">Yes</mat-option>
                    <mat-option value="no">No</mat-option>
                  </mat-select>
+                 <mat-error *ngIf="formControls.trust.hasError('required')">
+                   <mat-icon>error</mat-icon> Please choose your financial Trust!
+                 </mat-error>
                </mat-form-field>
                <!-- end:: trust-->
 
@@ -186,21 +264,20 @@
                <!-- start:: stocks -->
                <mat-form-field appearance="fill" class="full-width mb-3">
                  <mat-label>Stocks</mat-label>
-                 <mat-select [(value)]="stocks">
+                 <mat-select formControlName="stocks">
                    <mat-option value="yes">Yes</mat-option>
                    <mat-option value="no">No</mat-option>
                  </mat-select>
+                 <mat-error *ngIf="formControls.stocks.hasError('required')">
+                   <mat-icon>error</mat-icon> Please choose your financial stocks!
+                 </mat-error>
                </mat-form-field>
                <!-- end:: stocks-->
 
              </mat-expansion-panel>
              <!-- End:: Estate Planning -->
 
-
-
-
-
-
+          <button mat-raised-button color="primary" (click)="calculate()">Calculate</button>
 
            </form>
          </mat-card-content>
@@ -215,8 +292,58 @@
        <div class="col-12 col-md-8">
 
           <mat-card>
-            <mat-card-content>
-              <h1>Hello</h1>
+            <mat-card-content class="text-center">
+
+              <mat-tab-group>
+
+
+                <mat-tab label="BREAKDOWN" >
+
+                  <div class="mt-3 mb-5">
+                    <div *ngIf="overview" id="overview">
+                      this is overview
+                    </div>
+
+                    <div *ngIf="details" id="details">
+                      this is details
+                    </div>
+                  </div>
+
+
+
+                  <div class="text-center">
+                    <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+                      <mat-button-toggle (click)="overview = true; details=false">Overview</mat-button-toggle>
+                      <mat-button-toggle (click)="details= true; overview =false">Details</mat-button-toggle>
+                    </mat-button-toggle-group>
+                  </div>
+
+                </mat-tab>
+
+
+
+                <mat-tab label="NET WORTH OVER TIME">
+
+                  <highcharts-chart
+                  [Highcharts]="Highcharts"
+
+                  [constructorType]="chartConstructor"
+                  [options]="chartOptions"
+                  [callbackFunction]="chartCallback"
+
+                  [(update)]="updateFlag"
+                  [oneToOne]="oneToOneFlag"
+                  [runOutsideAngular]="runOutsideAngular"
+
+                  style="width: 100%; height: 400px; display: block;"
+                ></highcharts-chart>
+
+                </mat-tab>
+
+              </mat-tab-group>
+
+
+
             </mat-card-content>
           </mat-card>
 

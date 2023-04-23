@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
 import {FormBuilder,Validators} from "@angular/forms";
+import * as Highcharts from 'highcharts';
+
 
 
 @Component({
@@ -7,10 +9,14 @@ import {FormBuilder,Validators} from "@angular/forms";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements  AfterViewInit{
   title = 'sheldrick';
-  panelOpenState = false;
-  selected:number =  650;
+  estatePanelOpenState = false;
+  dtiPanelOpenState = false;
+
+  overview: boolean = true;
+  details: boolean = false;
+
 
 
   constructor(private fb:FormBuilder) {
@@ -18,29 +24,76 @@ export class AppComponent {
 
   inputform = this.fb.group({
 
-    age:[25, Validators.required],
-    creditScore:[620, Validators.required],
-    debt:[560, Validators.required],
-    income:[1150, Validators.required],
-    assets:[455, Validators.required],
-    liabilities:[22, Validators.required],
+    age:['', [Validators.required, Validators.min(0)]],
+    creditScore:['', Validators.required],
+    debt:['', [Validators.required, Validators.min(0)]],
+    income:['', [Validators.required, Validators.min(0)]],
+    assets:['', [Validators.required, Validators.min(0)]],
+    liabilities:['', [Validators.required, Validators.min(0)]],
+    finGoal: ['', Validators.required],
+    will: ['', Validators.required],
+    house: ['', Validators.required],
+    lifeIns: ['', Validators.required],
+    savings: ['', Validators.required],
+    poa: ['', Validators.required],
+    trust: ['', Validators.required],
+    stocks: ['', Validators.required],
 
 
 
   });
-  finGoal: any;
-  will: any;
-  house: any;
-  lifeIns: any;
-  savings: any;
-  poa: any;
-  trust: any;
-  stocks: any;
-  dtiRatio: any;
+
+  get formControls(){
+    return this.inputform.controls;
+  }
+
+  get formValues(){
+    return this.inputform.value;
+  }
+
+
 
 
   formatLabel(value: number): string {
     return `${value}`;
   }
+
+  calculate() {
+
+    // IF ERROR OCCURS EXIT THE CALCULATE FUNCTION
+    if(this.inputform.invalid) {
+      this.estatePanelOpenState = true;
+      this.dtiPanelOpenState = true;
+      this.inputform.setErrors({ ...this.inputform.errors });
+      return;
+    }
+
+
+  }
+
+
+
+
+
+
+  ngAfterViewInit() {
+    //this.expansionPanel?.open();
+  }
+
+
+
+  Highcharts: typeof Highcharts = Highcharts; // required
+  chartConstructor: string = 'chart'; // optional string, defaults to 'chart'
+  chartOptions: Highcharts.Options = {
+    series: [{
+      data: [1, 2, 3],
+      type: 'line'
+    }]
+  }; // required
+  chartCallback: Highcharts.ChartCallbackFunction = function (chart) {  } // optional function, defaults to null
+  updateFlag: boolean = false; // optional boolean
+  oneToOneFlag: boolean = true; // optional boolean, defaults to false
+  runOutsideAngular: boolean = false; // optional boolean, defaults to false
+
 
 }
