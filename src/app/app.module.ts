@@ -10,6 +10,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatRadioModule} from "@angular/material/radio";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {MatSelectModule} from "@angular/material/select";
+import {HighchartsChartModule} from "highcharts-angular";
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import {MatSelectModule} from "@angular/material/select";
     MatInputModule,
     MatRadioModule,
     MatExpansionModule,
-    MatSelectModule
+    MatSelectModule,
+    HighchartsChartModule
   ],
   providers: [],
   bootstrap: [AppComponent]
